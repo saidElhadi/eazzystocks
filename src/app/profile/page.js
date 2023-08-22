@@ -29,7 +29,6 @@ function page() {
       // console.log("user uid", user.uid);
     }
   }, [user]);
-  console.log(user)
 
   // useEffect(() => {
   //   const unsubscribe = onAuthStateChanged(auth, (user) => {

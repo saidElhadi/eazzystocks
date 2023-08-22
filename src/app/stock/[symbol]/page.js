@@ -6,19 +6,16 @@ import { getNewsBySymbol, useCompanyOverview } from "@/lib/getDataFromAPI";
 import { User } from "@/lib/User";
 
 const page = ({ params, userObj }) => {
-  const checkRef = useRef();
+  const checkRef = useRef(null);
   const checkTrackRef = useRef();
   const { user } = UserAuth();
 
-  let stock = user.getItemFromWatchlist(params.symbol);
+  let stock = user?.getItemFromWatchlist(params.symbol);
   console.log(stock)
   if (stock == null) {
+    console.log("stuck null init obj")
     stock = getFinancialAsset(params.symbol, "stock");
-  } else {
-    console.log("stock found in watchlist");
   }
-
-  // check if user has stock in watchlist
 
   const { data, isError, isLoading } = useCompanyOverview(stock.symbol);
   const {
@@ -27,9 +24,6 @@ const page = ({ params, userObj }) => {
     isLoading: newsLoading,
   } = getNewsBySymbol(stock.symbol);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
   if (data) {
     if (news) {
     }
@@ -58,14 +52,15 @@ const page = ({ params, userObj }) => {
             ref={checkTrackRef}
             onChange={() => {
               if (user?.uid) {
-                if (checkRef.current.checked) {
+                if (checkTrackRef.current.checked) {
                   console.log("checked");
-                  stock.updateTracker();
-                  user.addToWatchlist(stock);
+                  stock.updateTracker()
+                  user.addToWatchlist(stock.toWatchlist());
+
                 } else {
                   console.log("unchecked");
                   stock.resetTracker();
-                  user.removeFromWatchlist(stock);
+                  user.addToWatchlist(stock.toWatchlist());
                 }
               }
             }}
