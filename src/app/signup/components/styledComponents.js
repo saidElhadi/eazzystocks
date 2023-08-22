@@ -18,14 +18,14 @@ export const Container = styled.div`
 
 // card that contains the login form
 export const Card = styled.div`
-  background-color: ${(props) => props.theme.colors.card};
-  border-radius: 10px;
+  background-color: ${(props) => props.theme.colors.card.background};
+  border-radius: 25px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 300px;
-  height: 400px;
-  display: ${(props) => (props.show ? "flex" : "none")};
-  justify-content: space-around;
+  height: 300px;
+  display: ${(props) => (props.show == 'true' ? "flex" : "none")};
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
@@ -34,15 +34,15 @@ export const Card = styled.div`
   input {
     margin: 10px 0;
     padding: 10px;
-    border-radius: 5px;
+    text-align: center;
     border: none;
     outline: none;
     width: 100%;
-    box-sizing: border-box;
+    box-sizing: border-box;;
     font-size: 1rem;
     font-weight: 600;
     color: ${(props) => props.theme.colors.text};
-    background-color: ${(props) => props.theme.colors.card};
+    background-color: ${(props) => props.theme.colors.input.background};
 
     &::placeholder {
       color: ${(props) => props.theme.colors.text};
@@ -50,7 +50,7 @@ export const Card = styled.div`
   }
   button {
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 25px;
     border: none;
     outline: none;
     width: 100%;
@@ -134,5 +134,14 @@ export const InputWithButton = styled.div`
       background-color: ${(props) =>
         props.theme.colors.button.disabled};
     }
+  }
+`;
+export const SelectedCountryCode = styled.div`
+  position: relative;
+  width: 0;
+  align-self: center;
+  color: ${(props) => props.theme.colors.text};
+  &::placeholder {
+    color: ${(props) => props.theme.colors.text};
   }
 `;

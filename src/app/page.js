@@ -5,8 +5,10 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase/config";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-export default function Home() {
+import { User } from "@/lib/User";
+export default function Home({children}) {
   const router = useRouter();
+  
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {

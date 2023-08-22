@@ -1,18 +1,26 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
 import { auth, firestore_db } from "@/firebase/config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { User } from "@/lib/User";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  // const logOut = () => {
-  //   signOut(auth).catch((error) => {
-  //     // console.log(error);
-  //   });
-  // };
+  const [user, setUser] = useState(new User());
+  const [wachlist, setWachlist] = useState(null); 
+  const [refresh, setRefresh] = useState(false);
+  const logOut = () => {
+    signOut(auth).catch((error) => {
+      // console.log(error);
+    });
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -20,16 +28,28 @@ export const AuthContextProvider = ({ children }) => {
         const userRef = doc(firestore_db, "users", user.uid);
         const userSnap = await getDoc(userRef);
         if (userSnap.exists()) {
-          setUser(userSnap.data());
+          if (userSnap.data().last_sign_in) {
+            console.log(
+              "usr last log in" + userSnap.data().last_sign_in.toDate()
+            );
+          }
+          if (userSnap.data().displayName == null) {
+            console.log("auth context updating profile");
+            await updateProfile(user, { displayName: userSnap.data().name });
+          }
+          const { displayName, email, photoURL, uid, phone, watchlist } = userSnap.data();
+          setUser(new User(uid, displayName, email, phone, photoURL, watchlist));
         } else {
-          const { displayName, email, photoURL, uid } = user;
+          const { displayName, email, photoURL, uid, phoneNumber } = user;
           const newUser = {
             displayName,
             email,
+            phoneNumber,
             photoURL,
             uid,
-            createdAt: new Date(),
-            updatedAt: new Date(),
+            sign_up: new Date(),
+            last_sign_in: new Date(),
+            wachlist: [],
           };
           await setDoc(userRef, newUser);
           setUser(newUser);
@@ -41,13 +61,13 @@ export const AuthContextProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-
   return (
     <AuthContext.Provider
       value={{
         auth,
         user,
-        // logOut,
+        wachlist,
+        logOut,
         setUser,
       }}
     >

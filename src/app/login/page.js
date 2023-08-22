@@ -39,7 +39,7 @@ function page() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      setErrorMessages((prevErrors) => [...prevErrors, error.message]);
+      setErrorMessages([error.message]);
     }
   };
   const handleLoginPhone = (code) => {
@@ -52,10 +52,10 @@ function page() {
           const user = result.user;
         })
         .catch((error) => {
-          setErrorMessages((prevErrors) => [...prevErrors, error.message]);
+          setErrorMessages([error.message]);
         });
     } catch (error) {
-      setErrorMessages((prevErrors) => [...prevErrors, error.message]);
+      setErrorMessages([error.message]);
     }
   };
   const sendCode = (phone) => {
@@ -80,7 +80,7 @@ function page() {
       })
       .catch((error) => {
         console.log(error.message);
-        setErrorMessages((prevErrors) => [...prevErrors, error.message]);
+        setErrorMessages([error.message]);
       });
   };
 

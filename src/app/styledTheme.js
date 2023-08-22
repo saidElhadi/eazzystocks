@@ -16,16 +16,20 @@ export const GlobalStyle = createGlobalStyle`
 `;
 export const theme = {
   colors: {
-    background: "#F9F7F7",
-    primary: "#112D4E",
-    primary_dark: "#112D4E",
-    primary_light: "#3F72AF",
-    secondary_coral: "#F4A261",
-    secondary_bright_blue: "#3DB2FF",
-    secondary_teal: "#48E5C2",
-    highlight: "#FFC75F",
-    dark_shade: "#1B262C",
+    background: "#EDF4FB",
+    text: "#1B262C",
+    text_light: "#3F72AF",
+    text_dark: "#0F1A2F",
+    primary: "#101836",
+    primary_dark: "#09193F",
+    primary_light: "#0063F7",
     light_shade: "#d1d9e6",
+    green: "#00C48C",
+    dark_green: "#009E7F",
+    red: "#FF3C38",
+    dark_red: "#E12D39",
+    grey: "#AAB7C4",
+    white: "#FFFFFF",
     // Additional colors for UI/UX elements:
     button: {
       default: "#3F72AF",
@@ -57,7 +61,7 @@ export const theme = {
       },
     },
     card: {
-      background: "#F9F7F7",
+      background: "#FFFFFF",
       border: "#D1D9E6",
     },
     modal: {

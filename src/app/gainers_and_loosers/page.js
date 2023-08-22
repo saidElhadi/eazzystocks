@@ -1,156 +1,99 @@
 "use client";
 import Link from "next/link";
-// import React, { useEffect, useState } from "react";
-// import { Container, Header } from "./components/styledComponents";
-
-// function page() {
-//   const [data, setData] = useState(null);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     async function fetchData() {
-//       try {
-//         const response = await fetch(
-//           "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=YOUR_API_KEY"
-//         );
-//         response.json().then((data) => setData(data));
-//         setLoading(false);
-//       } catch (error) {
-//         console.error("Error fetching the top gainers & losers:", error);
-//         setLoading(false);
-//       }
-//     }
-
-//     fetchData();
-//   }, []);
-//   if (loading)
-//     return (
-//       <Container>
-//         <p>Loading...</p>
-//       </Container>
-//     );
-//   return (
-//     <Container>
-//       <Header>Top Gainers & Loosers</Header>
-//       <h2>Top Gainers</h2>
-//       <ul>
-//         {data?.top_gainers?.map((ticker, index) => {
-//           console.log(ticker);
-//           return (
-//             <li key={String(ticker + index)}>
-//               {String(ticker.ticker)}: {String(ticker.price)}
-//             </li>
-//           );
-//         })}
-//       </ul>
-//       <h2>Top Losers</h2>
-//       <ul>
-//         {data?.top_losers?.map((ticker, index) => (
-//           <li key={String(ticker + index)}>
-//             {String(ticker.ticker)}: {String(ticker.price)}
-//           </li>
-//         ))}
-//       </ul>
-//     </Container>
-//   );
-// }
-
-// export default page;
-// GainersLosers.js
-import React, { useEffect, useState } from "react";
+import useSWR from "swr";
+import {
+  Container,
+  ContainerPreview,
+  PreviewHeader,
+} from "./components/styledComponents";
+import { Card } from "./components/Card";
+import { getGainersAndLoosers } from "@/lib/getDataFromAPI";
+import { getFinancialAsset } from "@/lib/FinancialAsset";
+import { useEffect, useState } from "react";
 
 function GainersLosers({ isPreview = false }) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { data, isError, isLoading } = getGainersAndLoosers();
+  const [topGainer, setTopGainer] = useState(null);
+  const [topLooser, setTopLooser] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(
-          "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=YOUR_API_KEY"
-        );
-        response.json().then((data) => setData(data));
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching the top gainers & losers:", error);
-        setLoading(false);
-      }
+    if (data) {
+      const topGainer = getFinancialAsset(data?.top_gainers[0].ticker, "Stock");
+      topGainer.data = data?.top_gainers[0];
+      const topLooser = getFinancialAsset(data?.top_losers[0].ticker, "Stock");
+      topLooser.data = data?.top_losers[0];
+
+      setTopGainer(topGainer);
+      setTopLooser(topLooser);
     }
-    fetchData();
-  }, []);
+  }, [data]);
 
-  if (loading) return <p>Loading...</p>;
+  if (isLoading) {
+    if (isPreview) {
+      return (
+        <>
+          <PreviewHeader href={"/gainers_and_loosers"}>
+            Gainers and losers
+          </PreviewHeader>
+          loading...
+          <ContainerPreview>
+            <Card
+              name={"loading"}
+              price={"..."}
+              changePercent={"..."}
+              changeCurrency={"..."}
+              up={true}
+            />
 
-  return (
-    <>
-      {" "}
-      <Link href="/gainers_and_loosers">
-        <h2>Top Gainers</h2>
-      </Link>
-      <ul>
-        {data?.top_gainers
-          ?.slice(0, isPreview ? 5 : undefined)
-          .map((ticker, index) => (
-            <Link href={`/gainers_and_loosers/${ticker.ticker}`}>
-              <TickerListItem
-                key={String(ticker.ticker + index)}
-                ticker={ticker}
-              >
-                {ticker.ticker}: {ticker.price} : {ticker.change_percentage}
-              </TickerListItem>
-            </Link>
-          ))}
-      </ul>
-      <Link href="/gainers_and_loosers">
-        <h2>Top Losers</h2>
-      </Link>
-      <ul>
-        {data?.top_losers
-          ?.slice(0, isPreview ? 5 : undefined)
-          .map((ticker, index) => (
-            <Link href={`/gainers_and_loosers/${ticker.ticker}`}>
-              <li key={String(ticker.ticker + index)}>
-                {ticker.ticker}: {ticker.price} : {ticker.change_percentage}
-              </li>
-            </Link>
-          ))}
-      </ul>
-    </>
-  );
+            <Card
+              name={"loading"}
+              price={"..."}
+              changePercent={"..."}
+              changeCurrency={"..."}
+              up={false}
+            />
+          </ContainerPreview>
+        </>
+      );
+    }
+    return <Container></Container>;
+  }
+  if (isError) {
+    return <Container>error</Container>;
+  }
+
+  if (data && isPreview) {
+    return (
+      <>
+        <PreviewHeader href={"/gainers_and_loosers"}>
+          Gainers and losers
+        </PreviewHeader>
+        <ContainerPreview>
+          {topGainer && (
+            <Card
+              name={topGainer.symbol}
+              price={topGainer.data.price}
+              changePercent={topGainer.data.change_percentage}
+              changeCurrency={topGainer.data.change_amount}
+              up={true}
+            />
+          )}
+          {topLooser && (
+            <Card
+              name={topLooser.symbol}
+              price={topLooser.data.price}
+              changePercent={topLooser.data.change_percentage}
+              changeCurrency={topLooser.data.change_amount}
+              up={false}
+            />
+          )}
+        </ContainerPreview>
+      </>
+    );
+  }
+  if (!isPreview) {
+    return <Container>page mode</Container>;
+  }
 }
 
 export default GainersLosers;
-function TickerListItem({ ticker }) {
-  const [companyDetails, setCompanyDetails] = useState(null);
-
-  useEffect(() => {
-    async function fetchCompanyDetails() {
-      try {
-        const response = await fetch(
-          `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker.ticker}&apikey=${process.env.NEXT_PUBLIC_ALPHA_VENTAGE_APIKEY}}`
-        ).then(console.log('firstResponse'))
-        const data = await response.json();
-        setCompanyDetails(data);
-
-      } catch (error) {
-        console.error("Error fetching company details:", error);
-      }
-    }
-
-    fetchCompanyDetails();
-  }, []);
-
-  return (
-    <Link href={`/gainers_and_loosers/${ticker.ticker}`}>
-      <div>Ticker: {ticker.ticker}</div>
-      <div>Price: {ticker.price}</div>
-      <div>Change Percentage: {ticker.change_percentage}</div>
-      <div>Company Name: {companyDetails?.Name || "Loading..."}</div>
-      <div>
-        Company Details:{" "}
-        {companyDetails?.exchange  ||
-          "Loading..."}
-      </div>
-    </Link>
-  );
-}
