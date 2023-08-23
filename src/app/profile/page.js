@@ -56,7 +56,7 @@ function page() {
     <div>
       logged in as {user?.displayName}
       <br />
-      user object {user?.displayName}
+      user uid {String(user?.uid).slice(0, 10)}
       <br />
       <br />
       <button
@@ -92,6 +92,7 @@ function page() {
       <div>
         {user?.getWatchlist()?.map((item, index) => {
           console.log("map watchlist item", item.symbol, item.tracker);
+          let stockk = new FinancialAsset(item.symbol, item.type, item.tracker);
           return (
             <div key={index} style={{border: 'dashed red'}}> 
               {item.symbol + " - " + item.type + " - " + item.tracker}
