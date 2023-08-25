@@ -1,10 +1,23 @@
 import React from 'react'
 import { PreviewCardContainer, PreviewContainer, PreviewHeader, PreviewImage, PreviewName } from './watchlist.styled';
+import Link from 'next/link';
 
 const Preview = ({watchlist}) => {
   return (
     <PreviewContainer>
-        <PreviewHeader href="/watchlist">Watchlist</PreviewHeader>
+        <Link style={{ textDecoration: "none", color: 'grey'}} href={"/watchlist"}>
+          <h2>Watchlist</h2>
+        </Link>
+        {watchlist.map((stock) => (
+          <PreviewCard
+            key={stock.symbol}
+            symbol={stock.symbol}
+            price={stock.price}
+            changePrice={stock.changePrice}
+            changePercentage={stock.changePercentage}
+          />
+        ))}
+
       </PreviewContainer>
   )
 }

@@ -24,6 +24,8 @@ const WatchList = ({ isPreview }) => {
     }
   }, [user]);
 
+  // const {user} = UserAuth();
+
   if (isPreview) {
     return (
       <Preview watchlist={watchlist}></Preview>

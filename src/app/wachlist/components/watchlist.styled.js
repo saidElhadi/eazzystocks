@@ -38,7 +38,6 @@ export const PreviewContainer = styled.div`
   width: 100%;
   min-height: 270px;
   background-color: ${(props) => props.theme.colors.pallet.neutral[100]};
-  border: 2px solid green;
 `;
 export const PreviewHeader = styled(Link)`
   font-size: 1.5rem;

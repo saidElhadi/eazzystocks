@@ -9,6 +9,8 @@ import { useGainersAndLoosers } from "@/lib/getDataFromAPI";
 import { getFinancialAsset } from "@/lib/FinancialAsset";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Page from "./components/Page";
+import Preview from "./components/Preview";
 
 function GainersLosers({ isPreview = false }) {
   const { data, isError, isLoading } = useGainersAndLoosers();
@@ -27,22 +29,21 @@ function GainersLosers({ isPreview = false }) {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <Container></Container>;
-  }
+  // made a bug here
+  // if (isLoading) {
+  //   return <Container></Container>;
+  // }
   if (isError) {
     return <Container>error</Container>;
   }
 
-  if (data && isPreview) {
+  if (isPreview) {
     return (
-      <ContainerPreview>
-        <Link href={"/gainers_and_loosers"}>Gainers and Loosers Preview</Link>
-      </ContainerPreview>
+      <Preview data={data} isPreview={isPreview} isError={isError}/>
     );
   }
   if (!isPreview) {
-    return <>Gainers and Loosers Page</>;
+    return <Page data={data}/>
   }
 }
 

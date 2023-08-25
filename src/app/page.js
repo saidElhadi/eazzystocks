@@ -25,7 +25,7 @@ export default function Home({ children }) {
 
   return (
     <Container>
-      <Header />
+      <Header title={'Dashboard'}/>
       <Dashboard />
     </Container>
   );

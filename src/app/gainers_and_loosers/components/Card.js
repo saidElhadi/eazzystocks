@@ -14,17 +14,18 @@ export const Card = ({
   currency = "$",
   changePercent,
   changeCurrency,
-  up = true,
+  up,
 }) => {
+
   return (
     <ContainerPreviewCard>
       <PreviewImage></PreviewImage>
       <PreviewName>{name}</PreviewName>
-      <PreviewPrice>{price + currency}</PreviewPrice>
+      <PreviewPrice>{parseFloat(price).toFixed(2) + currency}</PreviewPrice>
       <PreviewContainerChange>
-        <PreviewChangePercent up={up}>{changePercent}</PreviewChangePercent>
+        <PreviewChangePercent up={up}>{parseFloat(changePercent).toFixed(2)}%</PreviewChangePercent>
         <PreviewChangePrice>
-          {String(changeCurrency) + currency}
+          {String(parseFloat(changeCurrency).toFixed(2)) + currency}
         </PreviewChangePrice>
       </PreviewContainerChange>
     </ContainerPreviewCard>

@@ -2,29 +2,8 @@
 import styled from "styled-components";
 import Link from "next/link";
 
-export const Container = styled.div`
-  background-color: ${(props) => props.theme.colors.pallet.neutral[100]};
-  color: ${(props) => props.theme.colors.pallet.neutral[800]};
-  min-height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  z-index: 101;
-  display: block;
-  margin: 0 auto;
-  flex-direction: column;
-  margin: 0 auto;
-`;
-export const Header = styled.h1`
-  max-width: 350px;
-  align-self: center;
-  margin: 0 auto;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-`;
-
+// Preview Components
 export const ContainerPreview = styled.div`
-  border: 2px solid red;
   height: 170px;
   width: 100%;
   min-width: fit-content;
@@ -42,9 +21,8 @@ export const ContainerPreviewCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
 `;
-
-// each element has a name
 export const PreviewImage = styled.img`
   height: 50px;
   width: 50px;
@@ -52,8 +30,7 @@ export const PreviewImage = styled.img`
   display: block;
   object-fit: cover;
   object-position: center;
-  border: 2px solid blue;
-  background-color: blue;
+  border: 2px solid ${(props) => props.theme.colors.pallet.neutral[100]};
 `;
 export const PreviewName = styled.div`
   font-size: 1.2rem;
@@ -65,7 +42,6 @@ export const PreviewPrice = styled.div`
   font-weight: 700;
   color: ${(props) => props.theme.colors.pallet.neutral[800]};
 `;
-
 export const PreviewContainerChange = styled.div`
   display: flex;
   flex-direction: row;
@@ -76,7 +52,6 @@ export const PreviewContainerChange = styled.div`
   margin: 0 auto;
   padding: 0 0 0 0;
 `;
-
 export const PreviewChange = styled.div`
   font-size: 1.1rem;
   font-weight: 700;
@@ -89,16 +64,76 @@ export const PreviewChange = styled.div`
   align-items: center;
 `;
 export const PreviewChangePercent = styled(PreviewChange)`
-  color: ${(props) => props.up? props.theme.colors.pallet.green : props.theme.colors.pallet.red};
+  color: ${(props) =>
+    props.up
+      ? props.theme.colors.pallet.green[500]
+      : props.theme.colors.pallet.red[500]};
 `;
 export const PreviewChangePrice = styled(PreviewChange)`
   color: ${(props) => props.theme.colors.pallet.neutral[400]};
 `;
-
 export const PreviewHeader = styled(Link)`
   font-size: 1.5rem;
   color: ${(props) => props.theme.colors.pallet.neutral[800]};
   margin: 0;
   padding: 0;
   text-decoration: none;
+`;
+
+// Page Components
+export const BoardContainer = styled.div`
+  column-gap: 0.1rem;
+  min-height: 200px;
+
+  width: ${(props) => props.width || "90%"};
+  max-width: 450px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  border-radius: 30px;
+
+  background-color: ${(props) => props.theme.colors.card.background};
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+`;
+export const GainerElement = styled.div`
+  height: ${(props) => props.theme.units.size.sm};
+  max-width: 100%;
+  background-color: ${(props) =>
+    props.theme.colors.pallet.green[1000 - 50 * props.rank]};
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0 0 0 0rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: ${(props) => props.theme.colors.pallet.neutral[100]};
+  text-shadow: 0 0 5px ${(props) => props.theme.colors.pallet.neutral[800]};
+  text-decoration: none;
+  text-align: left;
+`;
+export const LooserElement = styled.div`
+  height: ${(props) => props.theme.units.size.sm};
+  width: 100%;
+  background-color: ${(props) =>
+    props.theme.colors.pallet.red[1000 - 50 * props.rank]};
+  margin: 0 auto;
+  justify-content: space-evenly;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 0 0 0rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: ${(props) => props.theme.colors.pallet.neutral[100]};
+  text-shadow: 0 0 5px ${(props) => props.theme.colors.pallet.neutral[800]};
+  text-decoration: none;
+  text-align: left;
 `;
