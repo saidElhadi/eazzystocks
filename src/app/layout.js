@@ -1,9 +1,8 @@
 "use client";
 import StyledComponentsRegistry from "@/lib/registery";
-import { GlobalStyle, Theme } from "./styledTheme";
-import { AuthContextProvider } from "./context/AuthContext";
-import Navbar from "@/lib/Navbar";
-
+import { GlobalStyle, Theme } from "@/lib/styledTheme";
+import { AuthContextProvider } from "@/lib/context/AuthContext";
+import Navbar from "@/lib/navbar/Navbar";
 
 export default function RootLayout({ children }) {
   return (

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Link from "next/link";
 
 export const Container = styled.div`
-  background-color: ${(props) => props.theme.colors.background};
-  color: ${(props) => props.theme.colors.text};
+  background-color: ${(props) => props.theme.colors.pallet.neutral[100]};
+  color: ${(props) => props.theme.colors.pallet.neutral[800]};
   min-height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -63,7 +63,7 @@ export const PreviewName = styled.div`
 export const PreviewPrice = styled.div`
   font-size: 1rem;
   font-weight: 700;
-  color: ${(props) => props.theme.colors.text_light};
+  color: ${(props) => props.theme.colors.pallet.neutral[800]};
 `;
 
 export const PreviewContainerChange = styled.div`
@@ -89,15 +89,15 @@ export const PreviewChange = styled.div`
   align-items: center;
 `;
 export const PreviewChangePercent = styled(PreviewChange)`
-  color: ${(props) => props.up? props.theme.colors.green : props.theme.colors.red};
+  color: ${(props) => props.up? props.theme.colors.pallet.green : props.theme.colors.pallet.red};
 `;
 export const PreviewChangePrice = styled(PreviewChange)`
-  color: ${(props) => props.theme.colors.grey};
+  color: ${(props) => props.theme.colors.pallet.neutral[400]};
 `;
 
 export const PreviewHeader = styled(Link)`
   font-size: 1.5rem;
-  color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.colors.pallet.neutral[800]};
   margin: 0;
   padding: 0;
   text-decoration: none;

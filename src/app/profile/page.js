@@ -1,18 +1,13 @@
 "use client";
 import React, { use, useEffect, useRef, useState } from "react";
-import { UserAuth } from "../context/AuthContext";
+import { UserAuth } from "@/lib/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase/config";
 import { User } from "@/lib/User";
-import {
-  getCompanyOverview,
-  getMultipleCompanyOverviews,
-  serachSymbol,
-} from "@/lib/getDataFromAPI";
+
 import {
   FinancialAsset,
-  getFinancialAssetFromSymbolType,
 } from "@/lib/FinancialAsset";
 function page() {
   const { logOut } = UserAuth();
@@ -107,57 +102,12 @@ function page() {
                 remove
               </button>
               {/* get company info */}
-              <button
-                onClick={() => {
-                  item.getCompanyInfo().then((data) => {
-                    console.log("test get data", data);
-                  });
-                }}
-              >
-                get data
-              </button>
-              {/* get stock last price */}
-              <button
-                onClick={() => {
-                  item.getLatestPrice().then((data) => {
-                    console.log("test get data", data);
-                  });
-                }}
-              >
-                get last price data
-              </button>
+              
             </div>
           );
         })}
       </div>
-      {/* // get all wachlist items getMultipleCompanyOverviews */}
-      <div>
-        <button
-          onClick={() => {
-            getMultipleCompanyOverviews(
-              user?.getWatchlist()?.map((item) => item.symbol)
-            ).then((data) => {
-              // console.log('test in get all data')
-              console.log("test get data", data);
-            });
-          }}
-        >
-          get all data
-        </button>
-      </div>
-      {/* serach symbol */}
-      <>
-        <input ref={inputSearchRef} type="text" />
-        <button
-          onClick={() => {
-            serachSymbol(inputRef.current.value).then((data) => {
-              console.log("test get data", data);
-            });
-          }}
-        >
-          get data
-        </button>
-      </>
+      
     </div>
   );
 }

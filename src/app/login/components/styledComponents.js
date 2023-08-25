@@ -2,7 +2,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background-color: ${(props) => props.theme.colors.background};
+  background-color: ${(props) => props.theme.colors.pallet.neutral[100]};
   position: relative;
   height: 100vh;
   width: 100vw;
@@ -41,11 +41,11 @@ export const Card = styled.div`
     box-sizing: border-box;;
     font-size: 1rem;
     font-weight: 600;
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.colors.pallet.neutral[800]};
     background-color: ${(props) => props.theme.colors.input.background};
 
     &::placeholder {
-      color: ${(props) => props.theme.colors.text};
+      color: ${(props) => props.theme.colors.pallet.neutral[800]};
     }
   }
   button {
@@ -71,13 +71,13 @@ export const Card = styled.div`
   p {
     font-size: 0.8rem;
     font-weight: 600;
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.colors.pallet.neutral[800]};
     margin: 10px 0;
     a {
-      color: ${(props) => props.theme.colors.primary};
+      color: ${(props) => props.theme.colors.pallet.primary};
       text-decoration: underline;
       &:hover {
-        color: ${(props) => props.theme.colors.primary_dark};
+        color: ${(props) => props.theme.colors.pallet.neutral[900]};
       }
     }
   }
@@ -99,12 +99,12 @@ export const InputWithButton = styled.div`
     font-size: 1rem;
     font-weight: 600;
 
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.colors.pallet.neutral[800]};
     background-color: ${(props) =>
       props.theme.colors.input_with_button.background};
 
     &::placeholder {
-      color: ${(props) => props.theme.colors.text};
+      color: ${(props) => props.theme.colors.pallet.neutral[800]};
     }
     
   }
@@ -140,8 +140,8 @@ export const SelectedCountryCode = styled.div`
   position: relative;
   width: 0;
   align-self: center;
-  color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.colors.pallet.neutral[800]};
   &::placeholder {
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.colors.pallet.neutral[800]};
   }
 `;

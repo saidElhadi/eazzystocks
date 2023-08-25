@@ -1,8 +1,8 @@
 "use client";
 import { getFinancialAsset } from "@/lib/FinancialAsset";
 import React, { use, useEffect, useRef, useState } from "react";
-import { UserAuth } from "../../context/AuthContext";
-import { getNewsBySymbol, useCompanyOverview } from "@/lib/getDataFromAPI";
+import { UserAuth } from "@/lib/context/AuthContext";
+import { useNewsBySymbol, useCompanyOverview, get24HoursCurrencyAndPercentChange } from "@/lib/getDataFromAPI";
 import { User } from "@/lib/User";
 import ChartView from "@/lib/TimeSeriesChart";
 
@@ -10,11 +10,16 @@ const page = ({ params, userObj }) => {
   const checkRef = useRef(null);
   const checkTrackRef = useRef();
   const { user } = UserAuth();
-  const [interval, setInterval] = useState('5min');
-
+  console.log(params.symbol)
   const [stock, setStock] = useState(
-    getFinancialAsset(params.symbol, "STOCK", undefined, undefined, undefined)
+    getFinancialAsset(params.symbol, "STOCK", undefined, undefined)
   );
+  const {
+    data: news,
+    isError: newsError,
+    isLoading: newsLoading,
+  } = useNewsBySymbol(params.symbol);
+  const {data: _24hData, isError: _24hDataError, isLoading: _24hDataLoading} = get24HoursCurrencyAndPercentChange(params.symbol)
   useEffect(() => {
     if (user?.uid) {
       let temp = user.getItemFromWatchlist(params.symbol);
@@ -33,11 +38,7 @@ const page = ({ params, userObj }) => {
   }, [user]);
 
   const { data, isError, isLoading } = useCompanyOverview(stock.symbol);
-  const {
-    data: news,
-    isError: newsError,
-    isLoading: newsLoading,
-  } = getNewsBySymbol(stock.symbol);
+
   if (isLoading) {
     return <div>loading...</div>;
   }
@@ -52,6 +53,10 @@ const page = ({ params, userObj }) => {
     return (
       <div>
         <>{data.Symbol}</>
+        <h3>{_24hData && _24hData["Global Quote"]["05. price"]}$</h3>
+        <h3>{_24hData && _24hData["Global Quote"]["10. change percent"]}</h3>
+        
+        
         <h2>
           {data.Name}
           <input
@@ -86,7 +91,13 @@ const page = ({ params, userObj }) => {
           ></input>
         </h2>
         <ChartView symbol={stock.symbol}></ChartView>
+        <h3>Overview</h3>
         <p>{data.Description}</p>
+        <>{news && news?.feed?.slice(0, 5).map(
+          (elem) => { return <h4 key={elem.id}>{elem.title}</h4> }
+        )}</>
+        {/* change the above code to only show 5 news */}
+        
       </div>
     );
   }

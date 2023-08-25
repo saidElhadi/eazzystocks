@@ -6,7 +6,7 @@ import {
   PreviewContainerChange,
   PreviewChangePercent,
   PreviewChangePrice,
-} from "./styledComponents";
+} from "./gainers_and_loosers.styled";
 
 export const Card = ({
   name,
