@@ -6,9 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase/config";
 import { User } from "@/lib/User";
 
-import {
-  FinancialAsset,
-} from "@/lib/FinancialAsset";
+import { FinancialAsset } from "@/lib/FinancialAsset";
 function page() {
   const { logOut } = UserAuth();
   const [userObject, setUserObject] = useState(null);
@@ -24,28 +22,6 @@ function page() {
       // console.log("user uid", user.uid);
     }
   }, [user]);
-
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       setUser(user);
-  //       // not sure if its gonna work everyt time or it need to be in a seperate useEffect
-  //       User.getUser(user.uid)
-  //         .then((user) => {
-  //           setUserObject(user);
-  //         })
-  //         .catch((error) => {
-  //           // console.log(error);
-  //         });
-  //       if (user?.uid) {
-  //       }
-  //     }
-  //     if (!user) {
-  //       router.push("/login");
-  //     }
-  //   });
-  //   return unsubscribe;
-  // }, []);
 
   return (
     <div>
@@ -89,9 +65,9 @@ function page() {
           console.log("map watchlist item", item.symbol, item.tracker);
           let stockk = new FinancialAsset(item.symbol, item.type, item.tracker);
           return (
-            <div key={index} style={{border: 'dashed red'}}> 
+            <div key={index} style={{ border: "dashed red" }}>
               {item.symbol + " - " + item.type + " - " + item.tracker}
-              <br/>
+              <br />
               <button
                 onClick={() => {
                   user.removeFromWatchlist(item.symbol);
@@ -101,17 +77,12 @@ function page() {
               >
                 remove
               </button>
-              {/* get company info */}
-              
             </div>
           );
         })}
       </div>
-      
     </div>
   );
 }
 
 export default page;
-
-// watchlist components, renders everytime user.watchlist changes

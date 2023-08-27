@@ -1,20 +1,24 @@
 'use client'
 import styled from 'styled-components';
 import Link from 'next/link';
+import { Card } from '@/lib/basic_components/card.styled';
 
-export const PreviewCardContainer = styled.div`
+export const PreviewContainer = styled.div`
   height: 100%;
-  max-width: 340px;
-  margin: 0 auto;
-  background-color: ${(props) => props.theme.colors.card.background};
-  border-radius: 10px;
-  border: 2px solid blue;
+  width: 340px;
+  margin: 0 auto; 
+  min-height: 70px;
+  background-color: ${(props) => props.theme.colors.pallet.neutral[100]};
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
+
+export const StockCardContainer = styled(Card)`
+  justify-content: space-evenly;
   align-items: center;
-  justify-content: space-between;
-  padding: 0rem 0rem 0rem 0.5rem;
-  margin: 0.5rem auto;
+  height: 75px;
+  margin: 10px 0;
 `;
 
 // each element has a name
@@ -25,24 +29,34 @@ export const PreviewImage = styled.img`
   display: block;
   object-fit: cover;
   object-position: center;
-  border: 2px solid blue;
   background-color: blue;
 `;
-export const PreviewName = styled(Link)`
+
+export const PreviewName = styled.div`
 text-decoration: none;
+color: ${(props) => props.theme.colors.pallet.neutral[800]};
   font-size: 1.2rem;
   font-weight: 700;
   color: ${(props) => props.theme.colors.card.text};
 `;
-export const PreviewContainer = styled.div`
-  width: 100%;
-  min-height: 270px;
-  background-color: ${(props) => props.theme.colors.pallet.neutral[100]};
-`;
-export const PreviewHeader = styled(Link)`
+export const PreviewPriceChange = styled.div`
+  font-size: 1rem;
+  color: ${(props) => props.theme.colors.pallet.neutral[800]};
+  margin: 0;
+`
+export const PreviewPrecentageChange = styled.div`
+  font-size: 1rem;
+  color: ${(props) => props.theme.colors.pallet.neutral[800]};
+  margin: 0;
+
+`
+export const PreviewHeader = styled.div`
   font-size: 1.5rem;
   color: ${(props) => props.theme.colors.pallet.neutral[800]};
   margin: 0;
   padding: 0;
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;

@@ -11,24 +11,15 @@ const WatchList = ({ isPreview }) => {
   const [watchlist, setWatchlist] = useState([]);
   const [news, setNews] = useState([]); 
   const [refresh, setRefresh] = useState(false);
-  useEffect(() => {
-    if (user?.uid) {
-      // console.log("user uid", user.uid);
-      User.getUser(user.uid)
-        .then((user) => {
-          setWatchlist(user.getWatchlist());
-        })
-        .catch((error) => {
-          console.log("error: ", error);
-        });
-    }
-  }, [user]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
 
   // const {user} = UserAuth();
 
   if (isPreview) {
     return (
-      <Preview watchlist={watchlist}></Preview>
+      <Preview></Preview>
       );
   }
   if (!isPreview) {

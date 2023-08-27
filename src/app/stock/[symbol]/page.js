@@ -2,14 +2,15 @@
 import { getFinancialAsset } from "@/lib/FinancialAsset";
 import React, { use, useEffect, useRef, useState } from "react";
 import { UserAuth } from "@/lib/context/AuthContext";
-import { useNewsBySymbol, useCompanyOverview, get24HoursCurrencyAndPercentChange } from "@/lib/getDataFromAPI";
+import { useNewsBySymbol, useCompanyOverview, get24HoursChange } from "@/lib/getDataFromAPI";
 import { User } from "@/lib/User";
-import ChartView from "@/lib/TimeSeriesChart";
+import ChartView from "@/lib/chart/TimeSeriesChart";
 
 const page = ({ params, userObj }) => {
   const checkRef = useRef(null);
   const checkTrackRef = useRef();
   const { user } = UserAuth();
+  const [_24hData, set24hData] = useState(null);
   console.log(params.symbol)
   const [stock, setStock] = useState(
     getFinancialAsset(params.symbol, "STOCK", undefined, undefined)
@@ -19,7 +20,7 @@ const page = ({ params, userObj }) => {
     isError: newsError,
     isLoading: newsLoading,
   } = useNewsBySymbol(params.symbol);
-  const {data: _24hData, isError: _24hDataError, isLoading: _24hDataLoading} = get24HoursCurrencyAndPercentChange(params.symbol)
+  
   useEffect(() => {
     if (user?.uid) {
       let temp = user.getItemFromWatchlist(params.symbol);
@@ -36,9 +37,13 @@ const page = ({ params, userObj }) => {
       }
     }
   }, [user]);
+  useEffect(() => {
+   get24HoursChange(params.symbol).then((data) => {
+      set24hData(data);
+    });
+  }, []);
 
   const { data, isError, isLoading } = useCompanyOverview(stock.symbol);
-
   if (isLoading) {
     return <div>loading...</div>;
   }
@@ -53,8 +58,8 @@ const page = ({ params, userObj }) => {
     return (
       <div>
         <>{data.Symbol}</>
-        <h3>{_24hData && _24hData["Global Quote"]["05. price"]}$</h3>
-        <h3>{_24hData && _24hData["Global Quote"]["10. change percent"]}</h3>
+        <h3>{_24hData && _24hData["05. price"]}$</h3>
+        <h3>{_24hData && _24hData["10. change percent"]}</h3>
         
         
         <h2>
