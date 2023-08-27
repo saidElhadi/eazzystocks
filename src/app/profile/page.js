@@ -7,6 +7,8 @@ import { auth } from "@/firebase/config";
 import { User } from "@/lib/User";
 
 import { FinancialAsset } from "@/lib/FinancialAsset";
+import { getPerformance } from "@/lib/stockPerformance";
+import { calculatePerformanceFromSpecificDate, fetchCustomRangeData } from "@/lib/getDataFromAPI";
 function page() {
   const { logOut } = UserAuth();
   const [userObject, setUserObject] = useState(null);
@@ -16,6 +18,8 @@ function page() {
   const router = useRouter();
 
   const { user } = UserAuth();
+
+  
 
   useEffect(() => {
     if (user?.uid && !userObject) {
@@ -46,6 +50,10 @@ function page() {
         Log user object
       </button>
       <br />
+
+
+
+
       <input ref={inputRef} type="text" />
       <button
         onClick={() => {
@@ -57,13 +65,12 @@ function page() {
           setRefresh(!refresh);
         }}
       >
-        add the input to wachlist
+        add the input to watchlist
       </button>
-      {/* map wachlist */}
+      {/* map watchlist */}
       <div>
         {user?.getWatchlist()?.map((item, index) => {
-          console.log("map watchlist item", item.symbol, item.tracker);
-          let stockk = new FinancialAsset(item.symbol, item.type, item.tracker);
+          fetchCustomRangeData(item.symbol, item.tracker);
           return (
             <div key={index} style={{ border: "dashed red" }}>
               {item.symbol + " - " + item.type + " - " + item.tracker}
@@ -80,6 +87,13 @@ function page() {
             </div>
           );
         })}
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <div>
+        
       </div>
     </div>
   );

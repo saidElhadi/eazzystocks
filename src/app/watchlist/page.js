@@ -1,10 +1,9 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { styled } from "styled-components";
 import { UserAuth } from "@/lib/context/AuthContext";
-import { User } from "@/lib/User";
 import Preview from "./components/Preview";
+import Page from "./components/Page";
 
 const WatchList = ({ isPreview }) => {
   const { user } = UserAuth();
@@ -15,15 +14,13 @@ const WatchList = ({ isPreview }) => {
   const [isError, setIsError] = useState(false);
 
 
-  // const {user} = UserAuth();
-
   if (isPreview) {
     return (
       <Preview></Preview>
       );
   }
   if (!isPreview) {
-    return <div>WatchList</div>;
+    return <Page/>;
   }
 };
 

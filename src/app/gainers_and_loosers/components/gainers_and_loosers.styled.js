@@ -3,9 +3,16 @@ import styled from "styled-components";
 import Link from "next/link";
 
 // Preview Components
+export const PreviewSectionContainer = styled.div`
+  display: flex;
+  height: 250px;
+  flex-direction: column;
+  justify-content: space-around;
+ margin: 0 auto;
+`
 export const ContainerPreview = styled.div`
   height: 170px;
-  width: 100%;
+  width: 350px;
   min-width: fit-content;
   margin: 0 auto;
   display: flex;
@@ -30,7 +37,7 @@ export const PreviewImage = styled.img`
   display: block;
   object-fit: cover;
   object-position: center;
-  border: 2px solid ${(props) => props.theme.colors.pallet.neutral[100]};
+  /* border: 2px solid ${(props) => props.theme.colors.pallet.neutral[100]}; */
 `;
 export const PreviewName = styled.div`
   font-size: 1.2rem;

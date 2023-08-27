@@ -56,7 +56,7 @@ function page() {
             uid: user.uid,
             sign_up: new Date(),
             last_sign_in: new Date(),
-            wachlist: [],
+            watchlist: [],
           };
           setDoc(userRef, newUser);
         })
@@ -91,7 +91,7 @@ function page() {
             uid: user.uid,
             sign_up: new Date(),
             last_sign_in: new Date(),
-            wachlist: [],
+            watchlist: [],
           };
           setDoc(userRef, newUser);
         })
