@@ -88,7 +88,7 @@ function page() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         clearErrors();
-        router.push("/dashboard");
+        router.push("/");
       } else {
         console.log("no user");
       }
