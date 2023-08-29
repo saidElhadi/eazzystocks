@@ -18,7 +18,7 @@ import Link from "next/link";
 import EmailPasswordLogin from "./components/EmailPasswordLogin";
 import PhoneOtcLogin from "./components/PhoneOtcLogin";
 
-function page() {
+function Page() {
   const router = useRouter();
   const [showPhone, setShowPhone] = useState(false);
   const [errorMessages, setErrorMessages] = useState([" "]);
@@ -119,4 +119,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

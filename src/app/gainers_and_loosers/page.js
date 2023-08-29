@@ -1,9 +1,7 @@
 "use client";
 import {
   Container,
-  ContainerPreview,
-  PreviewHeader,
-} from "./components/gainers_and_loosers.styled";
+} from "@/lib/basic_components/container.styled";
 import { Card } from "./components/Card";
 import { useGainersAndLoosers } from "@/lib/getDataFromAPI";
 import { getFinancialAsset } from "@/lib/FinancialAsset";

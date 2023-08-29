@@ -22,7 +22,7 @@ import EmailPasswordLogin from "./components/EmailPasswordSignup";
 import PhoneOtcLogin from "./components/PhoneOtcSignup";
 import { doc, setDoc } from "firebase/firestore";
 
-function page() {
+function Page() {
   const auth = getAuth();
   
   const router = useRouter();
@@ -172,4 +172,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

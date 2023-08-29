@@ -9,7 +9,7 @@ import { User } from "@/lib/User";
 import { FinancialAsset } from "@/lib/FinancialAsset";
 import { getPerformance } from "@/lib/stockPerformance";
 import { calculatePerformanceFromSpecificDate, fetchCustomRangeData } from "@/lib/getDataFromAPI";
-function page() {
+function Page() {
   const { logOut } = UserAuth();
   const [userObject, setUserObject] = useState(null);
   const [refresh, setRefresh] = useState(false);
@@ -99,4 +99,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

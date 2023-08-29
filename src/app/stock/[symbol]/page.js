@@ -36,7 +36,7 @@ import { Button } from "@/lib/basic_components/button.styled";
 import { Header1 } from "@/lib/basic_components/headers.styled";
 import { FinancialAsset, getFinancialAsset } from "@/lib/FinancialAsset";
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   // Watchlist and Tracker manip
 
   const [isInTracker, setIsInTracker] = useState(false);
@@ -193,4 +193,4 @@ const page = ({ params }) => {
   }
 };
 
-export default page;
+export default Page;

@@ -1,7 +1,7 @@
 'use client'
 import React, {useState, useEffect} from "react";
-import {Preview} from './components/Preview'
-import {Page} from './components/Page'
+import Preview from './components/Preview'
+import Page from './components/Page'
 import { getNewsBySymbol } from "@/lib/getDataFromAPI";
 
 const News = ({isPreview, ticker = null}) => {
