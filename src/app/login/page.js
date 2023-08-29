@@ -94,7 +94,7 @@ function Page() {
       }
     });
     return unsubscribe;
-  }, []);
+  }, [router]);
 
   return (
     <Container>
@@ -112,7 +112,7 @@ function Page() {
       />
       <ErrorMessages />
       <p>
-        Don't have an account? <Link href={"/signup"}>Sign up!</Link>
+        Dont have an account? <Link href={"/signup"}>Sign up!</Link>
       </p>
       <div id="recapcha"></div>
     </Container>

@@ -176,8 +176,8 @@ const Page = ({ params }) => {
           {news?.feed?.map((item, index) => {
             // @/src/app/news/components/news.styles.js
             return (
-              <NewsCardLink style={{ textDecoration: "none" }} href={item.url}>
-                <NewsCard key={index}>
+              <NewsCardLink key={index} style={{ textDecoration: "none" }} href={item.url}>
+                <NewsCard >
                   <NewsCardImage src={item.banner_image} />
                   <NewsCardTitle>
                     {String(item.title).slice(0, 20)}...
