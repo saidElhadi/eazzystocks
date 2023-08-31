@@ -9,6 +9,7 @@ import Image from "next/image";
 import deleteIcon from "@/public/delete.svg";
 import trackIcon from "@/public/tracker.svg";
 import removeTrackerIcon from "@/public/remove_tracker.svg";
+import { getGlobalQuote } from "@/lib/getDataFromAPI";
 
 const Page = () => {
   const { user } = UserAuth();
@@ -22,10 +23,12 @@ const Page = () => {
   }, [user?.watchlist]);
 
   return (
-    <Container>
+    <Container style={{paddingTop: '100px'}}>
       <Header title={"Watchlist"}/>
       {watchlist?.map((stock, index) => {
         let local_stock = user.getItemFromWatchlist(stock.symbol);
+        let local_data = getGlobalQuote(local_stock.symbol)
+        let price = local_data['05. price']
         return (
           local_stock && (
             <WatchlistContainer>
@@ -54,7 +57,7 @@ const Page = () => {
                     if (stock.tracker != null) {
                       user?.removeTracker(local_stock.symbol);
                     } else {
-                      user?.updateTracker(local_stock.symbol);
+                      user?.updateTracker(local_stock.symbol, price);
                     }
                     setRefresh(!refresh);
                   }}

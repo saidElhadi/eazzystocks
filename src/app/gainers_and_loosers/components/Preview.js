@@ -3,6 +3,7 @@ import React from "react";
 import { ContainerPreview, PreviewSectionContainer } from "./gainers_and_loosers.styled";
 import { Card } from "./Card";
 import Link from "next/link";
+import { Header1Link } from "@/lib/basic_components/headers.styled";
 
 const Preview = ({ isLoading, isError, data }) => {
   if (isLoading) {
@@ -41,7 +42,7 @@ const Preview = ({ isLoading, isError, data }) => {
   if (data) {
     return (
       <PreviewSectionContainer>
-        <h2>Gainers and losers</h2>
+        <Header1Link href={'/gainers_and_loosers'}>Gainers and losers</Header1Link>
           <ContainerPreview>
             {data && (
               <Card
