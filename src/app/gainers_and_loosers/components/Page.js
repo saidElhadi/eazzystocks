@@ -48,7 +48,7 @@ const RenderGainerLosserElems = (data) => {
 
 const Page = ({ data }) => {
   return (
-    <Container>
+    <Container style={{paddingTop: '100px'}}>
       <Header title={"Gainers & Loosers"} />
       <BoardContainer>{RenderGainerLosserElems(data)}</BoardContainer>
     </Container>
